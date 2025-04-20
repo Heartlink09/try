@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Heart Link - Timeline</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #a18cd1;
+      --secondary: #fbc2eb;
+      --deep-purple: #6a1b9a;
+      --light-bg: #fff;
+      --shadow: rgba(0, 0, 0, 0.1);
+      --border: #ddd;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: linear-gradient(135deg, var(--secondary), var(--primary));
+      min-height: 100vh;
+      padding: 1rem;
+      display: flex;
+      justify-content: center;
+    }
+
+    .timeline-container {
+      width: 100%;
+      max-width: 700px;
+    }
+
+    .post-card {
+      background: var(--light-bg);
+      margin-bottom: 1.5rem;
+      border-radius: 1.25rem;
+      box-shadow: 0 8px 20px var(--shadow);
+      padding: 1.5rem;
+      transition: 0.3s ease;
+    }
+
+    .post-header {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 1rem;
+    }
+
+    .avatar {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background: var(--primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: bold;
+      font-size: 1.2rem;
+    }
+
+    .username {
+      font-weight: 600;
+      font-size: 1.1rem;
+      color: var(--deep-purple);
+    }
+
+    .post-text {
+      font-size: 1rem;
+      margin: 1rem 0;
+      line-height: 1.5;
+    }
+
+    .post-img {
+      width: 100%;
+      max-height: 300px;
+      object-fit: cover;
+      border-radius: 1rem;
+      margin-bottom: 1rem;
+    }
+
+    .post-actions {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .action-btn {
+      background-color: var(--deep-purple);
+      color: white;
+      padding: 0.5rem 1rem;
+      border-radius: 1rem;
+      border: none;
+      cursor: pointer;
+      font-size: 0.9rem;
+      transition: 0.2s ease;
+    }
+
+    .action-btn:hover {
+      background-color: #4a007e;
+    }
+
+    /* Modal */
+    .modal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      background-color: rgba(0, 0, 0, 0.4);
+      z-index: 999;
+    }
+
+    .modal-content {
+      background: white;
+      padding: 2rem;
+      border-radius: 1rem;
+      max-width: 400px;
+      width: 90%;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+      text-align: center;
+    }
+
+    .modal-content textarea {
+      width: 100%;
+      height: 100px;
+      margin-top: 1rem;
+      padding: 1rem;
+      border-radius: 0.5rem;
+      border: 1px solid var(--border);
+      resize: none;
+    }
+
+    .close-btn {
+      margin-top: 1rem;
+      background: var(--primary);
+      color: white;
+      padding: 0.5rem 1rem;
+      border: none;
+      border-radius: 1rem;
+      cursor: pointer;
+    }
+
+    @media (max-width: 600px) {
+      .post-card {
+        padding: 1rem;
+      }
+      .avatar {
+        width: 40px;
+        height: 40px;
+        font-size: 1rem;
+      }
+      .username {
+        font-size: 1rem;
+      }
+      .post-text {
+        font-size: 0.95rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="timeline-container">
+
+    <!-- Example Post -->
+    <div class="post-card">
+      <div class="post-header">
+        <div class="avatar">A</div>
+        <div class="username">Alice</div>
+      </div>
+      <div class="post-text">
+        Feeling amazing today! 💖
+      </div>
+      <img src="https://placekitten.com/600/300" alt="Post Image" class="post-img" />
+      <div class="post-actions">
+        <button class="action-btn like-btn">💖 Like</button>
+        <button class="action-btn reply-btn">💬 Reply</button>
+        <button class="action-btn block-btn">🚫 Block</button>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Reply Modal -->
+  <div class="modal" id="replyModal">
+    <div class="modal-content">
+      <h3>Reply to this post</h3>
+      <textarea placeholder="Write your reply..."></textarea>
+      <button class="close-btn" onclick="closeModal()">Send Reply</button>
+    </div>
+  </div>
+
+  <script>
+    // Like button toggle
+    document.querySelectorAll('.like-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        btn.textContent = btn.textContent.includes('💖') ? '✅ Liked' : '💖 Like';
+      });
+    });
+
+    // Reply modal open
+    document.querySelectorAll('.reply-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.getElementById('replyModal').style.display = 'flex';
+      });
+    });
+
+    // Close modal
+    function closeModal() {
+      document.getElementById('replyModal').style.display = 'none';
+      alert("Reply sent!");
+    }
+
+    // Block confirmation
+    document.querySelectorAll('.block-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        if (confirm("Are you sure you want to block this user?")) {
+          alert("User blocked!");
+        }
+      });
+    });
+  </script>
+
+</body>
+</html>

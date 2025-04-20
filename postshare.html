@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Heart Link - Share Post</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #a18cd1;
+      --secondary: #fbc2eb;
+      --deep-purple: #6a1b9a;
+      --light-bg: #fff;
+      --light-border: #ccc;
+      --shadow: rgba(0, 0, 0, 0.1);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: linear-gradient(135deg, var(--secondary), var(--primary));
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 2rem;
+    }
+
+    .post-container {
+      background: var(--light-bg);
+      padding: 2rem;
+      border-radius: 1.5rem;
+      box-shadow: 0 8px 24px var(--shadow);
+      width: 100%;
+      max-width: 500px;
+    }
+
+    h2 {
+      text-align: center;
+      color: var(--deep-purple);
+      margin-bottom: 1.5rem;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    textarea {
+      resize: vertical;
+      height: 100px;
+      padding: 1rem;
+      font-size: 1rem;
+      border: 1px solid var(--light-border);
+      border-radius: 0.75rem;
+    }
+
+    input[type="file"] {
+      padding: 0.5rem 0;
+    }
+
+    .preview-img {
+      max-width: 100%;
+      max-height: 200px;
+      display: none;
+      margin-top: 1rem;
+      border-radius: 1rem;
+      border: 1px solid #ccc;
+    }
+
+    button {
+      background: var(--deep-purple);
+      color: #fff;
+      padding: 0.9rem;
+      font-size: 1rem;
+      border: none;
+      border-radius: 0.75rem;
+      cursor: pointer;
+      font-weight: 600;
+      transition: background 0.3s;
+    }
+
+    button:hover {
+      background: #4a007e;
+    }
+
+    @media (max-width: 500px) {
+      .post-container {
+        padding: 1.5rem;
+      }
+      textarea {
+        font-size: 0.95rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="post-container">
+    <h2>Share a Post</h2>
+    <form id="postForm">
+      <textarea placeholder="What's on your heart today?" required></textarea>
+      <input type="file" accept="image/*" id="imageInput" onchange="previewImage(event)" />
+      <img class="preview-img" id="imagePreview" alt="Preview" />
+      <button type="submit">Post</button>
+    </form>
+  </div>
+
+  <script>
+    function previewImage(event) {
+      const preview = document.getElementById('imagePreview');
+      const file = event.target.files[0];
+      if (file) {
+        preview.src = URL.createObjectURL(file);
+        preview.style.display = 'block';
+      } else {
+        preview.style.display = 'none';
+      }
+    }
+
+    document.getElementById("postForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+      alert("Post shared successfully!");
+      // You can hook this to your backend POST API here
+    });
+  </script>
+
+</body>
+</html>

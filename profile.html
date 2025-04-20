@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Heart Link - Profile</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #a18cd1;
+      --secondary: #fbc2eb;
+      --deep-purple: #6a1b9a;
+      --danger: #e53935;
+      --light-purple: #e0c6f9;
+      --text: #333;
+      --muted: #777;
+      --shadow: rgba(0, 0, 0, 0.1);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: linear-gradient(135deg, var(--secondary), var(--primary));
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+    }
+
+    .profile-card {
+      background-color: var(--light-purple);
+      width: 100%;
+      max-width: 520px;
+      padding: 2rem;
+      border-radius: 1.5rem;
+      box-shadow: 0 10px 30px var(--shadow);
+      animation: fadeIn 0.6s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .profile-pic {
+      width: 140px;
+      height: 140px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 4px solid var(--deep-purple);
+      display: block;
+      margin: 0 auto 1rem;
+    }
+
+    input[type="file"] {
+      display: block;
+      margin: 0 auto 1rem;
+      font-size: 0.9rem;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+
+    label {
+      font-weight: 600;
+      color: var(--deep-purple);
+    }
+
+    input[type="text"],
+    input[type="number"],
+    select,
+    textarea {
+      padding: 0.7rem;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 1rem;
+      resize: none;
+    }
+
+    textarea {
+      height: 80px;
+    }
+
+    .actions {
+      display: flex;
+      gap: 1rem;
+      margin-top: 1.5rem;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      flex: 1 1 48%;
+      padding: 0.75rem;
+      font-size: 1rem;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: background 0.3s;
+      font-weight: 600;
+    }
+
+    .btn.follow {
+      background-color: var(--deep-purple);
+      color: white;
+    }
+
+    .btn.follow:hover {
+      background-color: #4a007e;
+    }
+
+    .btn.block {
+      background-color: var(--danger);
+      color: white;
+    }
+
+    .btn.block:hover {
+      background-color: #c62828;
+    }
+
+    @media (max-width: 500px) {
+      .btn {
+        flex: 1 1 100%;
+      }
+    }
+
+    .header {
+      text-align: center;
+      margin-bottom: 1.5rem;
+    }
+
+    .header h2 {
+      color: var(--deep-purple);
+      font-size: 1.6rem;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="profile-card">
+    <div class="header">
+      <img id="preview" class="profile-pic" src="https://via.placeholder.com/140" alt="Profile Picture">
+      <input type="file" accept="image/*" onchange="loadProfilePic(event)" />
+      <h2>My Profile</h2>
+    </div>
+
+    <form id="profile-form">
+      <label for="city">City</label>
+      <input type="text" id="city" placeholder="Enter your city" required />
+
+      <label for="age">Age</label>
+      <input type="number" id="age" placeholder="Enter your age" min="18" required />
+
+      <label for="gender">Gender</label>
+      <select id="gender" required>
+        <option value="">-- Select Gender --</option>
+        <option value="female">Female</option>
+        <option value="male">Male</option>
+        <option value="nonbinary">Non-binary</option>
+      </select>
+
+      <label for="intro">Introduction</label>
+      <textarea id="intro" placeholder="Say something about yourself..."></textarea>
+    </form>
+
+    <div class="actions">
+      <button class="btn follow" onclick="followUser()">Follow</button>
+      <button class="btn block" onclick="blockUser()">Block</button>
+    </div>
+  </div>
+
+  <script>
+    function loadProfilePic(event) {
+      const preview = document.getElementById('preview');
+      preview.src = URL.createObjectURL(event.target.files[0]);
+    }
+
+    function followUser() {
+      alert("You are now following this user!");
+    }
+
+    function blockUser() {
+      const confirmed = confirm("Are you sure you want to block this user?");
+      if (confirmed) {
+        alert("User has been blocked.");
+      }
+    }
+  </script>
+
+</body>
+</html>
